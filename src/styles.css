@@ -132,7 +132,39 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+:root {
+  --background: oklch(0.14 0.03 250);
+  --foreground: oklch(0.97 0.01 250);
+  --primary: oklch(0.97 0.01 250);
+  --primary-foreground: oklch(0.18 0.03 250);
+  --muted-foreground: oklch(0.97 0.01 250 / 65%);
+  --accent: oklch(0.78 0.16 60);
+  --glass: oklch(1 0 0 / 8%);
+  --glass-strong: oklch(1 0 0 / 14%);
+  --glass-border: oklch(1 0 0 / 22%);
+  --glass-highlight: oklch(1 0 0 / 35%);
+  --shadow-glass: inset 0 1px 0 0 var(--glass-highlight), inset 0 0 24px 0 oklch(1 0 0 / 6%), 0 20px 50px -20px oklch(0 0 0 / 60%);
+  --font-display: "Sora", system-ui, sans-serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-glass: var(--glass);
+  --color-glass-strong: var(--glass-strong);
+  --color-glass-border: var(--glass-border);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+}
+
+@utility glass {
+  background: linear-gradient(135deg, var(--glass-strong), var(--glass));
+  backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+}
+
 @layer base {
+  h1, h2, h3 { font-family: var(--font-display); }
   * {
     border-color: var(--color-border);
   }
