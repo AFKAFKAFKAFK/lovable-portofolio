@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Star, RefreshCw } from "lucide-react";
-import { GlassCard, spring } from "./GlassCard";
+import { spring } from "./GlassCard";
+import { TiltCard } from "./TiltCard";
 import { getRepos, GITHUB_USER, CACHE_TTL_MS, type Repo } from "@/lib/github";
 
 type State =
@@ -82,13 +83,8 @@ export function Projects() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {state.repos.map((r, i) => (
             <a key={r.id} href={r.html_url} target="_blank" rel="noreferrer" className="block">
-              <GlassCard
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ ...spring, delay: (i % 3) * 0.08 }}
-                className="flex h-full flex-col p-6"
-              >
+              <TiltCard delay={(i % 3) * 0.08}>
+                <div className="flex h-full flex-col p-6">
                 <h3 className="truncate text-lg font-semibold">{r.name}</h3>
                 <p className="mt-2 line-clamp-3 flex-1 text-sm text-muted-foreground">
                   {r.description ?? "No description provided."}
@@ -104,7 +100,8 @@ export function Projects() {
                     <Star className="h-4 w-4" /> {r.stargazers_count}
                   </span>
                 </div>
-              </GlassCard>
+                </div>
+              </TiltCard>
             </a>
           ))}
         </div>

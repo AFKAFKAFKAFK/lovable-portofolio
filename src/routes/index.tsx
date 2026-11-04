@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import bg from "@/assets/liquid-bg.jpg";
+import { InteractiveBackground } from "@/components/portfolio/InteractiveBackground";
 import { Nav } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
 import { Projects } from "@/components/portfolio/Projects";
@@ -30,6 +31,7 @@ function Index() {
         height={1088}
         className="pointer-events-none fixed inset-0 -z-10 h-full w-full object-cover"
       />
+      <InteractiveBackground />
       <Nav />
       <SettingsWidget />
       <main>
