@@ -11,8 +11,7 @@ export function GlassCard({ className, interactive = true, children, ...props }:
   return (
     <motion.div
       className={cn("glass rounded-3xl", className)}
-      whileHover={interactive ? { y: -6, scale: 1.015 } : undefined}
-      whileTap={interactive ? { scale: 0.985 } : undefined}
+      {...(interactive ? { whileHover: { y: -6, scale: 1.015 }, whileTap: { scale: 0.985 } } : {})}
       transition={spring}
       {...props}
     >
