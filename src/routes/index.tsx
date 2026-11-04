@@ -3,6 +3,7 @@ import bg from "@/assets/liquid-bg.jpg";
 import { Nav } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
 import { Projects } from "@/components/portfolio/Projects";
+import { SettingsWidget } from "@/components/portfolio/SettingsWidget";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,6 +31,7 @@ function Index() {
         className="pointer-events-none fixed inset-0 -z-10 h-full w-full object-cover"
       />
       <Nav />
+      <SettingsWidget />
       <main>
         <Hero />
         <Projects />

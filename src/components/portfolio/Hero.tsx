@@ -28,7 +28,7 @@ export function Hero() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={spring}
-            className="rounded-full bg-primary px-7 py-3 font-medium text-primary-foreground shadow-lg"
+            className="rounded-full bg-accent px-7 py-3 font-medium text-accent-foreground shadow-lg transition-colors duration-500"
           >
             View my work
           </motion.a>

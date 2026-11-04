@@ -156,11 +156,34 @@
   --font-sans: var(--font-body);
 }
 
+@property --rainbow-hue {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+:root {
+  --glass-blur: 40px;
+  --accent-foreground: oklch(0.15 0.03 250);
+  --accent-border: color-mix(in oklab, var(--accent) 45%, var(--glass-border));
+}
+
+@keyframes rainbow-shift {
+  to { --rainbow-hue: 360; }
+}
+
+:root.rainbow {
+  animation: rainbow-shift 8s linear infinite;
+  --accent: oklch(0.78 0.17 var(--rainbow-hue));
+  --accent-border: oklch(0.8 0.15 var(--rainbow-hue) / 70%);
+}
+
 @utility glass {
   background: linear-gradient(135deg, var(--glass-strong), var(--glass));
-  backdrop-filter: blur(40px) saturate(180%);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--accent-border);
+  box-shadow: var(--shadow-glass), 0 0 30px -12px var(--accent);
+  transition: border-color 0.6s ease, box-shadow 0.6s ease;
 }
 
 @layer base {
