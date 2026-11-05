@@ -1,15 +1,3 @@
-# Ripple Glass Portfolio
-
-Act as an expert frontend developer and UX designer. Build a premium personal portfolio website. The core design system must strictly follow Apple's liquid glass design (Glassmorphism). Use heavy background blurs, frosted glass panels, thin translucent borders, and subtle inner shadows.
-
-Include these sections:
-
-A Hero section for a personal introduction.
-
-A placeholder section for Portfolio/Projects.
-
-The layout must be fully responsive (Mobile, Tablet, Desktop). Apply smooth, fluid spring animations for every basic interaction (hover, scroll). Make sure the code is modular and bug-free.
-
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
