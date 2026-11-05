@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep the Easter egg memory game isolated in its own modal and use an XState machine for match timing and input locking, so rapid interactions cannot corrupt a round.

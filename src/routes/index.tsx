@@ -5,6 +5,7 @@ import { Nav } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
 import { Projects } from "@/components/portfolio/Projects";
 import { SettingsWidget } from "@/components/portfolio/SettingsWidget";
+import { MemoryGame } from "@/components/portfolio/MemoryGame";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,7 +39,8 @@ function Index() {
         <Hero />
         <Projects />
       </main>
-      <footer className="pb-10 text-center text-sm text-muted-foreground">
+      <footer className="relative pb-10 pt-11 text-center text-sm text-muted-foreground">
+        <MemoryGame />
         © {new Date().getFullYear()} Nizam Giofandi
       </footer>
     </div>
