@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Apple, Aperture, Flower2, Gem, Moon, Sparkles, RotateCcw, X, Check, Trophy } from "lucide-react";
-import { createActor } from "xstate";
+import { useActor } from "@xstate/react";
 import { Button } from "@/components/ui/button";
 import { memoryMachine, shuffledDeck, secretBuffer, SECRET_WORD, PAIR_COUNT } from "@/lib/memory-game";
 import { cn } from "@/lib/utils";
@@ -12,14 +12,9 @@ const symbols = [Apple, Aperture, Flower2, Gem, Moon, Sparkles];
 const names = ["Apple", "Aperture", "Flower", "Gem", "Moon", "Sparkles"];
 
 function GameBoard() {
-  const [actor] = useState(() => createActor(memoryMachine, { input: { deck: shuffledDeck() } }));
-  const [state, setState] = useState(actor.getSnapshot());
+  const [deckInput] = useState(shuffledDeck);
+  const [state, send] = useActor(memoryMachine, { input: { deck: deckInput } });
   const reducedMotion = useReducedMotion();
-  useEffect(() => {
-    const subscription = actor.subscribe(setState);
-    actor.start();
-    return () => { subscription.unsubscribe(); actor.stop(); };
-  }, [actor]);
   const { deck, selected, matched, moves } = state.context;
   const won = state.matches("won");
 
@@ -39,7 +34,7 @@ function GameBoard() {
               <Button variant="ghost" className={cn("memory-card h-full w-full p-0 hover:bg-glass-strong", found && "memory-card-matched")}
                 aria-label={revealed ? `${names[symbol]}, card ${index + 1}${found ? ", matched" : ""}` : `Reveal card ${index + 1}`}
                 aria-pressed={revealed} disabled={revealed || state.matches("waiting") || won}
-                onClick={() => actor.send({ type: "FLIP", index })}>
+                onClick={() => send({ type: "FLIP", index })}>
                 <motion.span className="memory-flipper" animate={{ rotateY: revealed ? 180 : 0 }} transition={reducedMotion ? { duration: 0 } : spring}>
                   <span className="memory-face"><Aperture className="size-5 text-muted-foreground/50" /></span>
                   <span className="memory-face memory-back"><Icon className="size-7 text-accent sm:size-8" />{found && <Check className="absolute bottom-2 right-2 size-3 text-accent" />}</span>
@@ -53,7 +48,7 @@ function GameBoard() {
         <div role="status" aria-live="polite" className="flex items-center gap-2 text-sm text-muted-foreground">
           {won ? <><Trophy className="size-4 text-accent" /><span className="text-foreground">Beautiful. {moves} moves.</span></> : <span>{matched.length ? "Nice match." : "A little moment of play."}</span>}
         </div>
-        <Button variant="ghost" size="icon" title="New game" aria-label="New game" className="shrink-0 rounded-full hover:bg-glass-strong hover:text-foreground" onClick={() => actor.send({ type: "RESET", deck: shuffledDeck() })}><RotateCcw /></Button>
+        <Button variant="ghost" size="icon" title="New game" aria-label="New game" className="shrink-0 rounded-full hover:bg-glass-strong hover:text-foreground" onClick={() => send({ type: "RESET", deck: shuffledDeck() })}><RotateCcw /></Button>
       </div>
     </>
   );
