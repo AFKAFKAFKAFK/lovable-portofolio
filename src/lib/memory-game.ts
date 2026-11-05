@@ -7,7 +7,12 @@ export function shuffledDeck() {
   const deck = Array.from({ length: PAIR_COUNT * 2 }, (_, index) => index % PAIR_COUNT);
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
+    const left = deck[i];
+    const right = deck[j];
+    if (left !== undefined && right !== undefined) {
+      deck[i] = right;
+      deck[j] = left;
+    }
   }
   return deck;
 }
@@ -26,7 +31,10 @@ export const memoryMachine = setup({
     playable: ({ context, event }) => event.type === "FLIP" && Number.isInteger(event.index)
       && event.index >= 0 && event.index < context.deck.length
       && !context.selected.includes(event.index) && !context.matched.includes(event.index),
-    pair: ({ context }) => context.deck[context.selected[0]] === context.deck[context.selected[1]],
+    pair: ({ context }) => {
+      const [first, second] = context.selected;
+      return first !== undefined && second !== undefined && context.deck[first] === context.deck[second];
+    },
     complete: ({ context }) => context.matched.length === PAIR_COUNT * 2,
   },
   actions: {

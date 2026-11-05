@@ -33,7 +33,7 @@ function GameBoard() {
         {deck.map((symbol, index) => {
           const revealed = selected.includes(index) || matched.includes(index);
           const found = matched.includes(index);
-          const Icon = symbols[symbol];
+          const Icon = symbols[symbol] ?? Sparkles;
           return (
             <motion.div key={index} className="memory-tile aspect-square" initial={reducedMotion ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...spring, delay: reducedMotion ? 0 : index * 0.025 }}>
               <Button variant="ghost" className={cn("memory-card h-full w-full p-0 hover:bg-glass-strong", found && "memory-card-matched")}
