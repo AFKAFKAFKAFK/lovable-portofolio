@@ -197,3 +197,20 @@
     color: var(--color-foreground);
   }
 }
+
+:root {
+  --game-overlay: oklch(0.08 0.015 250 / 68%);
+  --game-surface: oklch(0.2 0.02 250 / 88%);
+  --game-matched: color-mix(in oklab, var(--accent) 12%, var(--glass));
+}
+
+.memory-overlay { background: var(--game-overlay); backdrop-filter: blur(12px); }
+.memory-dialog { background: var(--game-surface); backdrop-filter: blur(var(--glass-blur)) saturate(180%); border-color: var(--accent-border); box-shadow: var(--shadow-glass); }
+.memory-tile { perspective: 700px; }
+.memory-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 8px; box-shadow: inset 0 1px 0 var(--glass-highlight); }
+.memory-card:disabled { opacity: 1; }
+.memory-card-matched { background: var(--game-matched); border-color: var(--accent-border); }
+.memory-flipper { position: relative; display: block; width: 100%; height: 100%; transform-style: preserve-3d; }
+.memory-face { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; backface-visibility: hidden; }
+.memory-back { transform: rotateY(180deg); }
+@media (prefers-reduced-motion: reduce) { .memory-card { transition: none; } }
